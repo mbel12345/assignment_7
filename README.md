@@ -2,7 +2,7 @@
 
 ## Set up Repo
 In Github:
-Create new repo called midterm and make sure it is public
+Create new repo called assignment_7 and make sure it is public
 
 In WSL/VS Code Terminal:
 ```bash
