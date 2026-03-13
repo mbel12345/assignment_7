@@ -33,6 +33,10 @@ jobs:
           docker run -d --name qr-generator -v ./qr_codes:/app/qr_codes qr-code-generator-app --url http://www.njit.edu
           docker logs qr-generator
 
+      - name: See if qr_codes directory was created anywhere
+        run: |
+          docker exec qr-generator find / -maxdepth 3 -type d -name qr_codes
+
       - name: Check which files were generated in the container
         run: |
           docker exec qr-generator ls -l /app/qr_codes/*
