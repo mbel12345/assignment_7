@@ -4,14 +4,6 @@ FROM python:3.12-slim-bullseye
 # Set the working directory inside the container
 WORKDIR /app
 
-# Install system libraries required for python dependencies to work
-RUN apt-get update && apt-get install -y \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libpng-dev \
-    zlib1g-dev \
-    && rm -rf /var/lib/apt/lists/*
-
 # Copy the requirements.txt file and install dependencies
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
