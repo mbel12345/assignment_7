@@ -42,20 +42,23 @@ jobs:
       - name: Show hexdump of QR code
         run: |
           hexdump -C qr_codes/* | head -n 20
-      - name: Show image dimensions
+
+      - name: Check that QR code is valid
         run: |
           python3 - << 'EOF'
-          from PIL import Image
           import os
+          import sys
+          from PIL import Image
+          from pyzbar.pybzar import decode
 
           f = "qr_codes/" + os.listdir("qr_codes")[0]
           img = Image.open(f)
           print("Image size:", img.size)
-          EOF
 
-      - name: Check that QR code is valid
-        run: |
-          sudo apt-get update && sudo apt-get install -y zbar-tools
-          _FILE=$(ls -1 qr_codes/* | head -n 1)
-          echo "Validate $_FILE"
-          zbarimg $_FILE
+          result = decode(img)
+          if result:
+            print("Decoded:", result[0].data.decode())
+            sys.exit(1)
+          else:
+            print("No QR code detected")
+          EOF
