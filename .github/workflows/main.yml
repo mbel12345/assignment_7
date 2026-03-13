@@ -33,23 +33,7 @@ jobs:
           docker build -t qr-code-generator-app .
           docker run --rm \
             -v ${{ github.workspace }}/qr_codes:/app/qr_codes \
-            qr-code-generator-app --url http://www.njit.edu << 'EOF'
-from PIL import Image
-import os
-
-path = "qr_codes"
-files = os.listdir(path)
-print("Files:", files)
-
-if files:
-    f = os.path.join(path, files[0])
-    print("Opening:", f)
-    try:
-        Image.open(f).verify()
-        print("Pillow says: VALID PNG")
-    except Exception as e:
-        print("Pillow says:", e)
-EOF
+            qr-code-generator-app --url http://www.njit.edu
 
       - name: Check that QR code was generated
         run: |
