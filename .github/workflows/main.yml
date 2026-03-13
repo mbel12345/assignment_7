@@ -32,3 +32,14 @@ jobs:
           docker build -t qr-code-generator-app .
           docker run -d --name qr-generator -v ./qr_codes:/app/qr_codes qr-code-generator-app --url http://www.njit.edu
           docker logs qr-generator
+
+      - name: Check that QR code was generated
+        run: |
+          ls -l qr_codes/
+
+      - name: Check that QR code is valid
+        run: |
+          sudo apt-get update && sudo-apt-get install -y zbar-tools
+          _FILE=$(ls -1 qr_codes/* | head -n 1)
+          echo "Validate $_FILE"
+          zbarimg $_FILE
