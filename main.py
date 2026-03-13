@@ -51,7 +51,7 @@ def generate_qr_code(data, path, fill_color='red', back_color='white'):
         qr = qrcode.QRCode(version=1, box_size=10, border=5)
         qr.add_data(data)
         qr.make(fit=True)
-        img = qr.make_image(fill_color=fill_color, back_color=back_color).convert('RBG')
+        img = qr.make_image(fill_color=fill_color, back_color=back_color).convert('RGB')
 
         with path.open('wb') as qr_file:
             img.save(qr_file)
