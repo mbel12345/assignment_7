@@ -33,7 +33,7 @@ In SWL/VS Code Terminal:
 docker build -t qr-code-generator-app .
 
 # Run container with defaults (not recommened, you need a mount if you want to the view the QR codes)
-docker container rm -f qr-generator && run -d --name qr-generator qr-code-generator-app
+docker container rm -f qr-generator && docker run -d --name qr-generator qr-code-generator-app
 
 # Run container with proper directory mounts and override default url
 docker container rm -f qr-generator && docker run -d --name qr-generator -v ./qr_codes:/app/qr_codes qr-code-generator-app --url http://www.njit.edu
