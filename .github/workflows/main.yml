@@ -39,6 +39,10 @@ jobs:
         run: |
           ls -l qr_codes/*
 
+      - name: Show hexdump of QR code
+        run: |
+          hexdump -C qr_codes/* | head -n 20
+
       - name: Check that QR code is valid
         run: |
           sudo apt-get update && sudo apt-get install -y zbar-tools
