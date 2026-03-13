@@ -68,7 +68,7 @@ def main():
     args = parser.parse_args()
 
     # Logging setup
-    setup_logging
+    setup_logging()
 
     # Generate the timestamped filename for the QR code
     timestamp = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
