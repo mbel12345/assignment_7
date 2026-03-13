@@ -34,12 +34,11 @@ jobs:
 
       - name: Check which files were generated in the container
         run: |
-          docker exec qr-generator ls -l /app
           docker exec qr-generator ls -l /app/qr_codes
 
       - name: Check that QR code was generated
         run: |
-          ls -l qr_codes/*
+          ls -l /app/qr_codes/*
 
       - name: Check that QR code is valid
         run: |
