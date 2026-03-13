@@ -37,7 +37,7 @@ jobs:
 
       - name: Show which QR Codes were generated
         run: |
-          docker exec qr-generator ls -l /app/qr_codes
+          docker exec qr-generator-generator-app ls -l /app/qr_codes
 
       - name: Check that QR code was generated
         run: |
