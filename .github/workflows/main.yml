@@ -34,7 +34,7 @@ jobs:
 
       - name: Check that QR code was generated
         run: |
-          ls -l qr_codes/
+          ls -l qr_codes/*
 
       - name: Check that QR code is valid
         run: |
