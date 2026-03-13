@@ -35,10 +35,6 @@ jobs:
             -v ${{ github.workspace }}/qr_codes:/app/qr_codes \
             qr-code-generator-app --url http://www.njit.edu
 
-      - name: Show which QR Codes were generated
-        run: |
-          docker exec qr-code-generator-app ls -l /app/qr_codes
-
       - name: Check that QR code was generated
         run: |
           ls -l qr_codes/*
