@@ -63,7 +63,7 @@ jobs:
           result = decode(img)
           if result:
             print("Decoded:", result[0].data.decode())
-            sys.exit(1)
           else:
             print("No QR code detected")
+            sys.exit(1)
           EOF
