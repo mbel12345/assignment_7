@@ -28,6 +28,7 @@ jobs:
 
       - name: Build container
         run: |
+          mkdir -p qr_codes
           docker build -t qr-code-generator-app .
           docker run -d --name qr-generator -v ./qr_codes:/app/qr_codes qr-code-generator-app --url http://www.njit.edu
           docker logs qr-generator
