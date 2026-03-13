@@ -29,6 +29,7 @@ jobs:
       - name: Build container
         run: |
           mkdir -p qr_codes
+          chmod 777 qr_codes
           docker build -t qr-code-generator-app .
           docker run --rm \
             -v ${{ github.workspace }}/qr_codes:/app/qr_codes \
