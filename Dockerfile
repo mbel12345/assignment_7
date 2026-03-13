@@ -7,13 +7,6 @@ WORKDIR /app
 # Copy the requirements.txt file and install dependencies
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
-RUN apt-get update && apt-get install -y \
-    libjpeg62-turbo-dev \
-    zlib1g-dev \
-    libpng-dev \
-    libfreetype6-dev \
-    && rm -rf /var/lib/apt/lists/*
-
 
 # Create the dirs for logs and QR codes, and set ownership to non-root user, which helps with security.
 RUN useradd -m myuser && mkdir logs qr_codes && chown myuser:myuser logs qr_codes
