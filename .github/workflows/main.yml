@@ -1,0 +1,69 @@
+name: Run Tests on Push or Pull Request to Main
+
+on:
+  push:
+    branches:
+      - '**'  # Run tests on push to any branch, so that features are validated before merging into main
+  pull_request:
+    branches:
+      - main  # Run tests on any pull request to the main branch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'  # Set your desired Python version
+
+      - name: Install dependencies from requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install ZBar shared library
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libzbar0
+
+      - name: Build container
+        run: |
+          mkdir -p qr_codes
+          chmod 777 qr_codes
+          docker build -t qr-code-generator-app .
+          docker run --rm \
+            -v ${{ github.workspace }}/qr_codes:/app/qr_codes \
+            qr-code-generator-app --url http://www.njit.edu
+
+      - name: Check that QR code was generated
+        run: |
+          ls -l qr_codes/*
+
+      - name: Show hexdump of QR code
+        run: |
+          hexdump -C qr_codes/* | head -n 20
+
+      - name: Check that QR code is valid
+        run: |
+          python3 - << 'EOF'
+          import os
+          import sys
+          from PIL import Image
+          from pyzbar.pyzbar import decode
+
+          f = "qr_codes/" + os.listdir("qr_codes")[0]
+          img = Image.open(f)
+          print("Image size:", img.size)
+
+          result = decode(img)
+          if result:
+            print("Decoded:", result[0].data.decode())
+          else:
+            print("No QR code detected")
+            sys.exit(1)
+          EOF

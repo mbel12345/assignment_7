@@ -1,5 +1,10 @@
 dotenv==0.9.9
+iniconfig==2.3.0
+packaging==26.0
 pillow==12.1.1
+pluggy==1.6.0
+Pygments==2.19.2
 python-dotenv==1.2.2
+pyzbar==0.1.9
 qrcode==8.2
 validators==0.35.0
