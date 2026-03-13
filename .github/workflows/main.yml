@@ -33,7 +33,6 @@ jobs:
           docker run -d --name qr-generator -v ./qr_codes:/app/qr_codes qr-code-generator-app --url http://www.njit.edu
           docker logs qr-generator
 
-
       - name: Show which QR Codes were generated
         run: |
           docker exec qr-generator ls -l /app/qr_codes
