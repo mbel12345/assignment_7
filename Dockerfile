@@ -13,7 +13,7 @@ RUN useradd -m myuser && mkdir logs qr_codes && chown myuser:myuser logs qr_code
 
 # Copy the rest of the application's source code into the container, setting ownership to 'myuser'
 COPY --chown=myuser:myuser . .
-RUN chown -R myuser:myuser /app/qr_codes /app/logs
+RUN chown -R myuser:myuser /app/qr_codes
 
 # Switch to the non-root user for security
 USER myuser
