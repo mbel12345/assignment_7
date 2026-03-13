@@ -48,7 +48,7 @@ jobs:
           from PIL import Image
           import os
 
-          f = os.listdir("qr_codes")[0]
+          f = "qr_codes/" + os.listdir("qr_codes")[0]
           img = Image.open(f)
           print("Image size:", img.size)
           EOF
